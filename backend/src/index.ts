@@ -7,8 +7,15 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const API_URL = process.env.API_URL;
 
-app.get('/', (req, res) => {
-  res.send('Hello world');
+app.use(express.json());
+
+app.get(`${API_URL}/products`, (req, res) => {
+  const product = {
+    id: 1,
+    name: 'hair dresser',
+    image: 'some_url',
+  };
+  res.send(product);
 });
 
 app.listen(PORT, () => {
