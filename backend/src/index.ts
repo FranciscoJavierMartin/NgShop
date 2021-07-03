@@ -1,6 +1,7 @@
 import express from 'express';
 import { config } from 'dotenv';
 import morgan from 'morgan';
+import mongoose from 'mongoose';
 
 config();
 
@@ -19,6 +20,14 @@ app.get(`${API_URL}/products`, (req, res) => {
   };
   res.send(product);
 });
+
+mongoose
+  .connect(process.env.DATABASE!, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('Database connection ready'))
+  .catch((err) => console.log(err));
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
